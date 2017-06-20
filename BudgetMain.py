@@ -40,6 +40,7 @@ Builder.load_string("""
                     size_hint_x:"0.25"
                     size_hint_y:"0.50"
                 TextInput:
+                    id:input_amount
                     height: "20dp"
                     size_hint_x:"0.25"
                     size_hint_y:"0.50"
@@ -51,6 +52,7 @@ Builder.load_string("""
                     size_hint_x:"0.25"
                     size_hint_y:"0.50"
                 TextInput:
+                    id:input_date
                     height: "20dp"
                     size_hint_x:"0.25"
                     size_hint_y:"0.50"
@@ -62,6 +64,7 @@ Builder.load_string("""
                     size_hint_x:"0.25"
                     size_hint_y:"0.50"
                 TextInput:
+                    id:input_type
                     height: "20dp"
                     size_hint_x:"0.25"
                     size_hint_y:"0.50"
@@ -76,10 +79,7 @@ Builder.load_string("""
 		            size_hint_x:0.20
 		            size_hint_y:"0.35"
 		            halign: "right"
-		            on_release: app.add_transaction()
-
-
-
+		            on_release: app.add_transaction(input_amount.text,input_date.text,input_type.text)
 
 
 """)
@@ -92,6 +92,9 @@ class BestView(TabbedPanel):
 class BudgetApp(App):
     def build(self):
         return BestView()
+
+    def add_transaction(self, amount, date, type):
+        print "Function add_transaction Caled" + str(amount) + str(date) + str(type)
 
 
 if __name__ == '__main__':
