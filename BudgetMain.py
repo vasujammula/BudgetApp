@@ -19,11 +19,20 @@ Builder.load_string("""
             text: 'First tab content area'
     TabbedPanelItem:
         text: 'View'
+        id:view_tab
+        on_release: app.view_transaction(output_trans)
         BoxLayout:
-            ListView:
-                id:output_trans
-                item_strings: []
-
+            orientation: 'vertical'
+            BoxLayout:
+                ScrollView: 
+                    Label:
+                        id:output_trans
+                        text: ''
+                        text_size: self.width, None
+                        height: self.texture_size[1]
+                        size_hint_y: None
+                        halign: 'center'
+        
     TabbedPanelItem:
         text: 'Add'
         BoxLayout:
@@ -104,8 +113,11 @@ class BudgetApp(App):
     def view_transaction(self,output_trans):
         print "INFO:view_transaction called"
         d_h = data_handler()
-        d_h.add_trans(str(amount), str(date), str(ttype))
-        return d_h.view_trans()
+        #d_h.add_trans(str(amount), str(date), str(ttype))
+        trans = d_h.view_trans()
+        print trans
+        output_trans.text=str(trans)
+        #return d_h.view_trans()
 
 
 if __name__ == '__main__':

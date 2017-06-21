@@ -27,21 +27,22 @@ class data_handler():
 		
 
 	def view_trans(self):
+		rows=""
 		conn_h=sqlite3.connect(db_location)
                 if(conn_h):
-                        c_h=conn_h.cursor()
+			c_h=conn_h.cursor()
                         if c_h:
-				c_h.execute("SELECT * FROM transactions ")
-                                rows=c_h.fetchall()
-                		for record in rows:
-                        		print record
-				conn_h.close
-                        else:
-                                print "ERROR:ERROR WHILE INSERTING"
+                                c_h.execute("SELECT * FROM transactions ")
+				rowst=c_h.fetchall()
+				for row in rowst:
+                                        rows=rows+"\n"+str(row)
+                                print rows
+			else:
+				print "ERROR:ERROR WHILE INSERTING"
                 else:
                         print "ERROR:ERORR WHILE OPENEING DATABASE"
-
-
+		conn_h.close()
+		return rows
 
 if __name__=="__main__":
 	d=data_handler()
