@@ -1,7 +1,7 @@
 from kivy.app import App
 from kivy.uix.tabbedpanel import TabbedPanel
 from kivy.lang import Builder
-
+from python_sqlite import data_handler
 Builder.load_string("""
 
 <BestView>:
@@ -21,7 +21,8 @@ Builder.load_string("""
         text: 'View'
         BoxLayout:
             ListView:
-                item_strings: [str(index) for index in range(100)]
+                id:output_trans
+                item_strings: []
 
     TabbedPanelItem:
         text: 'Add'
@@ -64,7 +65,7 @@ Builder.load_string("""
                     size_hint_x:"0.25"
                     size_hint_y:"0.50"
                 TextInput:
-                    id:input_type
+                    id:input_ttype
                     height: "20dp"
                     size_hint_x:"0.25"
                     size_hint_y:"0.50"
@@ -79,7 +80,7 @@ Builder.load_string("""
 		            size_hint_x:0.20
 		            size_hint_y:"0.35"
 		            halign: "right"
-		            on_release: app.add_transaction(input_amount.text,input_date.text,input_type.text)
+		            on_release: app.add_transaction(input_amount.text,input_date.text,input_ttype.text)
 
 
 """)
@@ -93,8 +94,18 @@ class BudgetApp(App):
     def build(self):
         return BestView()
 
-    def add_transaction(self, amount, date, type):
-        print "Function add_transaction Caled" + str(amount) + str(date) + str(type)
+
+    def add_transaction(self, amount, date, ttype):
+        print "INFO:Function add_transaction Caled" + str(amount) + str(date) + str(ttype)
+        d_h=data_handler()
+        d_h.add_trans(str(amount),str(date),str(ttype))
+        trans=d_h.view_trans()
+
+    def view_transaction(self,output_trans):
+        print "INFO:view_transaction called"
+        d_h = data_handler()
+        d_h.add_trans(str(amount), str(date), str(ttype))
+        return d_h.view_trans()
 
 
 if __name__ == '__main__':
