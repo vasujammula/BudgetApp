@@ -1,7 +1,10 @@
+import datetime
 from kivy.app import App
 from kivy.uix.tabbedpanel import TabbedPanel
 from kivy.lang import Builder
 from python_sqlite import data_handler
+from kivy.uix.popup import Popup
+
 Builder.load_string("""
 
 <BestView>:
@@ -17,6 +20,7 @@ Builder.load_string("""
         text: 'Welcome'
         Label:
             text: 'First tab content area'
+                    
     TabbedPanelItem:
         text: 'View'
         id:view_tab
@@ -119,6 +123,10 @@ class BudgetApp(App):
         output_trans.text=str(trans)
         #return d_h.view_trans()
 
+    def Picker(self):
+        self.laDate = self.datepicker.text
+        self.datepicked = datetime.datetime.strptime(self.laDate, '%d.%m.%Y').strftime('%d/%m/%Y')
+        self.myLabel.text = str(self.datepicked)
 
 if __name__ == '__main__':
     BudgetApp().run()
