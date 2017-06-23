@@ -18,16 +18,23 @@ Builder.load_string("""
 
     TabbedPanelItem:
         text: 'Welcome'
-        Label:
-            text: 'First tab content area'
-                    
+        FloatLayout:
+            Image:
+                source: "images/main_bg.jpg"
+                allow_stretch: True
+                keep_ratio: False
+                size_hint: 1, 1
+            Label:
+                text:"Welcome To Budget App"
+                color: 1,0,0,1
+                size:self.size
     TabbedPanelItem:
         text: 'View'
         id:view_tab
         on_release: app.view_transaction(output_trans)
         BoxLayout:
             orientation: 'vertical'
-            BoxLayout:
+            PageLayout:
                 ScrollView: 
                     Label:
                         id:output_trans
@@ -36,6 +43,7 @@ Builder.load_string("""
                         height: self.texture_size[1]
                         size_hint_y: None
                         halign: 'center'
+                       
         
     TabbedPanelItem:
         text: 'Add'
